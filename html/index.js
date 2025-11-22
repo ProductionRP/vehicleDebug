@@ -13,23 +13,17 @@ window.addEventListener("message", function (event) {
 function post(type, data) {
 	try {
 		fetch(`https://${GetParentResourceName()}/${type}`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json; charset=UTF-8",
+				'Content-Type': 'application/json; charset=UTF-8',
 			},
-			body: JSON.stringify(data),
-		});
+			body: JSON.stringify(data)
+		})
 	} catch { }
 }
 
-function toggle(value) {
-	document.querySelector("#content").style.display = value ? "block" : "none";
-}
-
 function setFocus(value) {
-	document.querySelector("#handling").style.display = value
-		? "block"
-		: "none";
+	document.querySelector("#handling").style.display = value ? "block" : "none";
 }
 
 function updateText(data) {
@@ -55,13 +49,17 @@ function copyText(text) {
 	element.value = undefined;
 }
 
+function toggle(value) {
+	document.querySelector("#content").style.display = value ? "block" : "none";
+}
+
 function copyHandling() {
-	post("copyHandling");
+	post("copyHandling")
 }
 
 function updateHandling(key, value) {
 	post("updateHandling", {
 		key: key,
 		value: value,
-	});
+	})
 }

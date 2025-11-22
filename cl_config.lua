@@ -1,5 +1,7 @@
 Config = {
-	Precision = 10000.0,
+	Precision = 100.0,
+	Keybind = "rmenu", -- lmenu = Left Alt, rmenu = Right Alt | Full list: https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
+	EnabledByDefault = true, -- Set to false if you want the debugger disabled by default (use /vehdebug to enable)
 	Fields = {
 		{ name = "fMass", type = "float", description = [[
 			The weight of the vehicle. Values should be given in Kilograms.
@@ -31,7 +33,15 @@ Config = {
 				<li>Z: -10.0 to 10.0. Positive values move the center of gravity upwards.</li>
 			</ul>
 		]] },
-		{ name = "vecInertiaMultiplier", type = "vector" },
+		{ name = "vecInertiaMultiplier", type = "vector", description = [[
+			Handles the vehicle's inertia.<br>
+			Values (Default values tend to be 1.0):
+			<ul>
+				<li>X: -10.0 to 10.0. Positive values increase Pitch (Forward & Back).</li>
+				<li>Y: -10.0 to 10.0. Positive values increase Roll (Side to Side).</li>
+				<li>Z: -10.0 to 10.0. Positive values increase Yaw (Rotation).</li>
+			</ul>
+		]] },
 		{ name = "fDriveBiasFront", type = "float", description = [[
 			This is used to determine whether a vehicle is front, rear, or four wheel drive.<br>Values:
 			<ul>
@@ -117,13 +127,17 @@ Config = {
 			</ul>
 		]] },
 		{ name = "fTractionCurveMax", type = "float", description = [[
-			Cornering grip of the vehicle as a multiplier of the tire surface friction.
+			Cornering grip of the vehicle as a multiplier of the tire surface friction.<br>
+			ie: Higher value gives better grip while off pedal
 		]] },
 		{ name = "fTractionCurveMin", type = "float", description = [[
-			Accelerating/braking grip of the vehicle as a multiplier of the tire surface friction.
+			Accelerating/braking grip of the vehicle as a multiplier of the tire surface friction.<br>
+			ie: Higher value gives better grip while on pedal
 		]] },
 		{ name = "fTractionCurveLateral", type = "float", description = [[
-			Shape of lateral traction curve.
+			Shape of lateral traction curve (peak traction position in degrees sideways = fTractionCurveLateral / 2).<br>
+			Lower values make the vehicle's grip more responsive but less forgiving to loss of traction.<br>
+			Higher values make the vehicle's grip less responsive but more forgiving to loss of traction. Also known as "slip angle".
 		]] },
 		{ name = "fTractionSpringDeltaMax", type = "float", description = [[
 			This value determines at what distance above the ground the car will lose traction.
@@ -207,10 +221,11 @@ Config = {
 			</ul>
 		]] },
 		{ name = "fRollCentreHeightRear", type = "float", description = [[
-			This value modify the weight transmission during an acceleration between the front and rear. high positive value can make your car able to do wheelies.<br>
+			This value modify the weight transmitted during an acceleration between the front and rear.<br>
+			High positive value can make your car able to do wheelies.<br>
 			Values (Recommended -0.15 to 0.15):
 			<ul>
-				<li>Larger Numbers = less rollovers.</li>
+				<li>Larger Numbers = less acceleration/deceleration sway.</li>
 			</ul>
 		]] },
 		{ name = "fCollisionDamageMult", type = "float", description = [[

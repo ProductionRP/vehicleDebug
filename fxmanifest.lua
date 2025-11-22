@@ -1,6 +1,6 @@
-author 'Jameslroll'
+author 'Kerminal'
 description 'Utility to edit the handling of vehicles and record speeds'
-version '1.0.0'
+version '1.1.0'
 
 fx_version 'cerulean'
 game 'gta5'

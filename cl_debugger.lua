@@ -3,7 +3,8 @@ Debugger = {
 	speed = 0.0,
 	accel = 0.0,
 	decel = 0.0,
-	toggle = false
+	toggle = false,
+	toggleOn = Config.EnabledByDefault
 }
 
 --[[ Functions ]]--
@@ -198,10 +199,13 @@ function Debugger:Focus(toggle)
 end
 
 function Debugger:ToggleOn(toggleData)
-	-- if toggle and not DoesEntityExist(self.vehicle or 0) then return end
-
-	self.toggle = toggleData
+	self.toggleOn = toggleData
 	self:Invoke("toggle", toggleData)
+	
+	-- Close the UI if we're disabling
+	if not toggleData and self.hasFocus then
+		self:Focus(false)
+	end
 end
 
 function Debugger:Invoke(_type, data)
@@ -249,15 +253,20 @@ RegisterNUICallback("resetStats", function(data, cb)
 	Debugger:ResetStats()
 end)
 
---[[ Commands ]]--
+--[[ Commands ]]
 RegisterCommand("+vehicleDebug", function()
 	if Debugger.toggleOn == false then return end
 	Debugger:Focus(not Debugger.hasFocus)
 end, true)
 
-RegisterKeyMapping("+vehicleDebug", "Vehicle Debugger", "keyboard", "lmenu")
+RegisterKeyMapping("+vehicleDebug", "Vehicle Debugger", "keyboard", Config.Keybind)
 
 RegisterCommand("vehdebug", function()
-	Debugger:ToggleOn(not Debugger.toggleOn)
 	Debugger.toggleOn = not Debugger.toggleOn
-end, true)
+	Debugger:ToggleOn(Debugger.toggleOn)
+	TriggerEvent('chat:addMessage', {
+		color = {255, 255, 0},
+		multiline = true,
+		args = {"Vehicle Debugger", Debugger.toggleOn and "Enabled" or "Disabled"}
+	})
+end, false)

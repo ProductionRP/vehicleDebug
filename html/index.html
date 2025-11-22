@@ -9,9 +9,11 @@
 	<body>
 		<textarea id="clipboard"></textarea>
 		<div id="content">
-			<span>Top Speed: </span><span id="top-speed"></span><br>
-			<span>Top Acceleration: </span><span id="top-accel"></span><br>
-			<span>Top Deceleration: </span><span id="top-decel"></span><br>
+			<div id="statistics">
+				<span>Top Speed: </span><span id="top-speed"></span><br>
+				<span>Top Acceleration: </span><span id="top-accel"></span><br>
+				<span>Top Deceleration: </span><span id="top-decel"></span><br>
+			</div>
 			<div id="handling" style="display: none">
 				<button onclick="copyHandling()">Copy Handling</button>
 				<button onclick="post('resetStats')">Reset Stats</button>
